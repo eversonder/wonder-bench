@@ -10,9 +10,11 @@ cool() { # start each benchmark from a similar temperature so runs are comparabl
   while t=$(cat /sys/class/thermal/thermal_zone0/temp); [ "$t" -gt 60000 ]; do sleep 10; done
 }
 
-cool; (cd bench && python train.py)
-cool; bash bench/llm.sh
-cool; (cd bench && python asr.py)
-cool; (cd bench && python mimi.py)
-cool; (cd bench && python tts.py)
+# each step is skipped if its result already exists, so an interrupted run resumes where it stopped
+step() { [ -s "$out/$1.json" ] && echo "skip $1 (have $out/$1.json)" || { cool; echo "== $1"; shift; "$@"; }; }
+step train bash -c 'cd bench && python train.py'
+step llm   bash bench/llm.sh
+step asr   bash -c 'cd bench && python asr.py'
+step mimi  bash -c 'cd bench && python mimi.py'
+step tts   bash -c 'cd bench && python tts.py'
 python report.py "$out"

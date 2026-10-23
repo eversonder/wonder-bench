@@ -11,7 +11,7 @@ from pathlib import Path
 
 # Ubuntu on the Pi leaves /dev/vcio root-only; read telemetry through passwordless sudo there.
 VC = ["vcgencmd"] if os.access("/dev/vcio", os.R_OK | os.W_OK) else ["sudo", "-n", "vcgencmd"]
-RESULTS = Path(os.environ.get("WB_RESULTS", "results")) / f"{platform.node()}-{time.strftime('%Y%m%d')}"
+RESULTS = Path(os.environ.get("WB_RESULTS", Path(__file__).resolve().parents[1] / "results")) / f"{platform.node()}-{time.strftime('%Y%m%d')}"
 
 
 def save(name, data):
