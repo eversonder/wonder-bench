@@ -1,0 +1,7 @@
+.venv/
+models/
+data/
+llama.cpp/
+__pycache__/
+*.log
+.DS_Store
