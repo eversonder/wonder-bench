@@ -1,0 +1,341 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T13:01:05+0100"
+  },
+  "rows": [
+    {
+      "decoder": "vocos-mel",
+      "params_m": 13.5,
+      "sr": 24000,
+      "frame_hz": 93.75,
+      "offline_rtf": 0.115,
+      "stream_ms_per_80ms_p50": 53.5,
+      "stream_ms_per_80ms_p95": 72.2,
+      "stream_chunk": "8 new + 23 context frames",
+      "threads": 1,
+      "peak_rss_mb": 355,
+      "weights": "MIT; LibriTTS",
+      "lm_load": false
+    },
+    {
+      "decoder": "vocos-mel-onnx",
+      "params_m": 13.5,
+      "sr": 24000,
+      "frame_hz": 93.75,
+      "offline_rtf": 0.101,
+      "stream_ms_per_80ms_p50": 31.5,
+      "stream_ms_per_80ms_p95": 39.3,
+      "stream_chunk": "8 new + 23 context frames",
+      "threads": 1,
+      "peak_rss_mb": 484,
+      "weights": "MIT; LibriTTS (sherpa-onnx export)",
+      "lm_load": false
+    },
+    {
+      "decoder": "vocos-encodec-6k",
+      "params_m": 8.0,
+      "sr": 24000,
+      "frame_hz": 75,
+      "offline_rtf": 0.054,
+      "stream_ms_per_80ms_p50": 30.3,
+      "stream_ms_per_80ms_p95": 45.0,
+      "stream_chunk": "6 new + 18 context frames",
+      "threads": 1,
+      "peak_rss_mb": 517,
+      "weights": "MIT; DNS Challenge",
+      "lm_load": false
+    },
+    {
+      "decoder": "wavtokenizer-40hz",
+      "params_m": 63.8,
+      "sr": 24000,
+      "frame_hz": 40,
+      "offline_rtf": 0.201,
+      "stream_ms_per_80ms_p50": 162.1,
+      "stream_ms_per_80ms_p95": 195.3,
+      "stream_chunk": "4 new + 10 context frames",
+      "threads": 1,
+      "peak_rss_mb": 754,
+      "weights": "MIT; LibriTTS",
+      "lm_load": false
+    },
+    {
+      "decoder": "hifigan-v1",
+      "params_m": 13.9,
+      "sr": 22050,
+      "frame_hz": 86.13,
+      "offline_rtf": 1.869,
+      "stream_ms_per_80ms_p50": 593.8,
+      "stream_ms_per_80ms_p95": 638.1,
+      "stream_chunk": "7 new + 21 context frames",
+      "threads": 1,
+      "peak_rss_mb": 644,
+      "weights": "MIT; LJSpeech, one speaker",
+      "lm_load": false
+    },
+    {
+      "decoder": "hifigan-v2",
+      "params_m": 0.9,
+      "sr": 22050,
+      "frame_hz": 86.13,
+      "offline_rtf": 0.166,
+      "stream_ms_per_80ms_p50": 47.5,
+      "stream_ms_per_80ms_p95": 54.4,
+      "stream_chunk": "7 new + 21 context frames",
+      "threads": 1,
+      "peak_rss_mb": 425,
+      "weights": "MIT; LJSpeech, one speaker",
+      "lm_load": false
+    },
+    {
+      "decoder": "hifigan-v3",
+      "params_m": 1.5,
+      "sr": 22050,
+      "frame_hz": 86.13,
+      "offline_rtf": 0.172,
+      "stream_ms_per_80ms_p50": 51.2,
+      "stream_ms_per_80ms_p95": 61.3,
+      "stream_chunk": "7 new + 21 context frames",
+      "threads": 1,
+      "peak_rss_mb": 580,
+      "weights": "MIT; LJSpeech, one speaker",
+      "lm_load": false
+    },
+    {
+      "decoder": "snac-24k",
+      "params_m": 13.2,
+      "sr": 24000,
+      "frame_hz": 11.72,
+      "offline_rtf": 1.985,
+      "stream_ms_per_80ms_p50": 705.5,
+      "stream_ms_per_80ms_p95": 729.1,
+      "stream_chunk": "1 new + 3 context frames",
+      "threads": 1,
+      "peak_rss_mb": 768,
+      "weights": "MIT; data not stated",
+      "lm_load": false
+    },
+    {
+      "decoder": "mimi",
+      "params_m": null,
+      "sr": 24000,
+      "frame_hz": 12.5,
+      "offline_rtf": 0.449,
+      "stream_ms_per_80ms_p50": 117.4,
+      "stream_ms_per_80ms_p95": 137.8,
+      "stream_chunk": "decoder's own streaming step",
+      "threads": 1,
+      "peak_rss_mb": 1504,
+      "weights": "CC-BY-4.0",
+      "lm_load": false
+    },
+    {
+      "decoder": "telemetry",
+      "lm_load": false,
+      "watts_mean": 4.28,
+      "watts_peak": 6.757,
+      "temp_max_c": 71.0,
+      "arm_mhz_min": 2400,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 782
+    },
+    {
+      "decoder": "vocos-mel",
+      "params_m": 13.5,
+      "sr": 24000,
+      "frame_hz": 93.75,
+      "offline_rtf": 0.124,
+      "stream_ms_per_80ms_p50": 128.8,
+      "stream_ms_per_80ms_p95": 148.6,
+      "stream_chunk": "8 new + 23 context frames",
+      "threads": 1,
+      "peak_rss_mb": 388,
+      "weights": "MIT; LibriTTS",
+      "lm_load": true
+    },
+    {
+      "decoder": "vocos-mel-onnx",
+      "params_m": 13.5,
+      "sr": 24000,
+      "frame_hz": 93.75,
+      "offline_rtf": 0.202,
+      "stream_ms_per_80ms_p50": 71.7,
+      "stream_ms_per_80ms_p95": 85.9,
+      "stream_chunk": "8 new + 23 context frames",
+      "threads": 1,
+      "peak_rss_mb": 493,
+      "weights": "MIT; LibriTTS (sherpa-onnx export)",
+      "lm_load": true
+    },
+    {
+      "decoder": "vocos-encodec-6k",
+      "params_m": 8.0,
+      "sr": 24000,
+      "frame_hz": 75,
+      "offline_rtf": 0.125,
+      "stream_ms_per_80ms_p50": 86.5,
+      "stream_ms_per_80ms_p95": 103.0,
+      "stream_chunk": "6 new + 18 context frames",
+      "threads": 1,
+      "peak_rss_mb": 514,
+      "weights": "MIT; DNS Challenge",
+      "lm_load": true
+    },
+    {
+      "decoder": "wavtokenizer-40hz",
+      "params_m": 63.8,
+      "sr": 24000,
+      "frame_hz": 40,
+      "offline_rtf": 0.435,
+      "stream_ms_per_80ms_p50": 401.6,
+      "stream_ms_per_80ms_p95": 448.6,
+      "stream_chunk": "4 new + 10 context frames",
+      "threads": 1,
+      "peak_rss_mb": 777,
+      "weights": "MIT; LibriTTS",
+      "lm_load": true
+    },
+    {
+      "decoder": "hifigan-v1",
+      "params_m": 13.9,
+      "sr": 22050,
+      "frame_hz": 86.13,
+      "offline_rtf": 4.487,
+      "stream_ms_per_80ms_p50": 1488.4,
+      "stream_ms_per_80ms_p95": 1591.0,
+      "stream_chunk": "7 new + 21 context frames",
+      "threads": 1,
+      "peak_rss_mb": 645,
+      "weights": "MIT; LJSpeech, one speaker",
+      "lm_load": true
+    },
+    {
+      "decoder": "hifigan-v2",
+      "params_m": 0.9,
+      "sr": 22050,
+      "frame_hz": 86.13,
+      "offline_rtf": 0.352,
+      "stream_ms_per_80ms_p50": 111.3,
+      "stream_ms_per_80ms_p95": 134.4,
+      "stream_chunk": "7 new + 21 context frames",
+      "threads": 1,
+      "peak_rss_mb": 428,
+      "weights": "MIT; LJSpeech, one speaker",
+      "lm_load": true
+    },
+    {
+      "decoder": "hifigan-v3",
+      "params_m": 1.5,
+      "sr": 22050,
+      "frame_hz": 86.13,
+      "offline_rtf": 0.38,
+      "stream_ms_per_80ms_p50": 123.8,
+      "stream_ms_per_80ms_p95": 154.6,
+      "stream_chunk": "7 new + 21 context frames",
+      "threads": 1,
+      "peak_rss_mb": 581,
+      "weights": "MIT; LJSpeech, one speaker",
+      "lm_load": true
+    },
+    {
+      "decoder": "snac-24k",
+      "params_m": 13.2,
+      "sr": 24000,
+      "frame_hz": 11.72,
+      "offline_rtf": 3.406,
+      "stream_ms_per_80ms_p50": 1322.7,
+      "stream_ms_per_80ms_p95": 1376.9,
+      "stream_chunk": "1 new + 3 context frames",
+      "threads": 1,
+      "peak_rss_mb": 744,
+      "weights": "MIT; data not stated",
+      "lm_load": true
+    },
+    {
+      "decoder": "mimi",
+      "params_m": null,
+      "sr": 24000,
+      "frame_hz": 12.5,
+      "offline_rtf": 0.908,
+      "stream_ms_per_80ms_p50": 251.3,
+      "stream_ms_per_80ms_p95": 281.7,
+      "stream_chunk": "decoder's own streaming step",
+      "threads": 1,
+      "peak_rss_mb": 1502,
+      "weights": "CC-BY-4.0",
+      "lm_load": true
+    },
+    {
+      "decoder": "telemetry",
+      "lm_load": true,
+      "watts_mean": 6.37,
+      "watts_peak": 8.356,
+      "temp_max_c": 85.3,
+      "arm_mhz_min": 1500,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 1385
+    }
+  ],
+  "quality": [
+    {
+      "decoder": "original",
+      "utmos": 4.33,
+      "wer_pct": 3.1
+    },
+    {
+      "decoder": "vocos-mel",
+      "utmos": 4.04,
+      "wer_pct": 3.5
+    },
+    {
+      "decoder": "vocos-mel-onnx",
+      "utmos": 4.04,
+      "wer_pct": 3.8
+    },
+    {
+      "decoder": "vocos-encodec-6k",
+      "utmos": 4.21,
+      "wer_pct": 4.4
+    },
+    {
+      "decoder": "wavtokenizer-40hz",
+      "utmos": 3.84,
+      "wer_pct": 14.6
+    },
+    {
+      "decoder": "hifigan-v1",
+      "utmos": 3.53,
+      "wer_pct": 4.4
+    },
+    {
+      "decoder": "hifigan-v2",
+      "utmos": 3.3,
+      "wer_pct": 3.5
+    },
+    {
+      "decoder": "hifigan-v3",
+      "utmos": 3.06,
+      "wer_pct": 4.4
+    },
+    {
+      "decoder": "snac-24k",
+      "utmos": 4.15,
+      "wer_pct": 5.0
+    },
+    {
+      "decoder": "mimi",
+      "utmos": 3.91,
+      "wer_pct": 5.2
+    }
+  ],
+  "budget": "80 ms of audio per 80 ms frame on one core, shared with the TTS backbone; the whole voice must hold RTF <= 0.3 under LM load",
+  "data": "LibriTTS-R test-clean (24 kHz, CC BY 4.0), peak -3 dBFS, resampled to each decoder's rate; copy synthesis: mel rows decode exact mels, codec rows their own quantised codes (vocos-encodec 6 kbps, wavtokenizer 1x4096 at 40 Hz, snac 3 levels, mimi 8 codebooks); scored at 16 kHz (content above 8 kHz is not judged) with UTMOS22-strong via SpeechMOS v1.2.0 and Moonshine base WER; hifigan weights are single-speaker LJSpeech"
+}

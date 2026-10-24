@@ -47,5 +47,5 @@ for ext in onnx onnx.json; do
 done
 get https://huggingface.co/kyutai/moshiko-pytorch-bf16/resolve/main/tokenizer-e351c8d8-checkpoint125.safetensors models/mimi/tokenizer-e351c8d8-checkpoint125.safetensors
 
-[ -s data/librispeech-test-clean-20/transcripts.tsv ] || python fetch_data.py
+python fetch_data.py  # skips sets it already has
 echo "setup done: $(du -sh models | cut -f1) of models"

@@ -9,6 +9,7 @@ Week 1 of [EVERSONDER Wonder](https://eversonder.com): measure, on a real Raspbe
 | `bench/asr.py` | Moonshine tiny, base, tiny-streaming, small-streaming: WER on 20 LibriSpeech utterances, RTF, streaming update latency | "240 ms final transcript" |
 | `bench/mimi.py` | Mimi decoder per 80 ms frame (p50/p95), the codec Wonder TTS v0 builds on | "unmeasured" |
 | `bench/tts.py` | Kokoro int8, Piper (LibriTTS-R voice), Pocket TTS, Phonon-31m: time-to-first-audio and RTF on one core, idle and while Qwen3 decodes on two others | the go/no-go gate: **RTF ≤ 0.3 under LM load** |
+| `bench/decoder.py` | Decoder bake-off: Vocos (mel, EnCodec), WavTokenizer, HiFi-GAN v1–3, SNAC and Mimi on one core, offline RTF and streaming ms per 80 ms of audio, idle and under LM load; quality by copy synthesis of 20 LibriTTS-R clips (UTMOS22, Moonshine WER) | which decoder replaces Mimi |
 
 `bench/cpu.sh` runs the "squeeze the CPU" experiments: memory bandwidth (STREAM), a quantisation sweep with flash attention, micro-batch and mmap options, KL divergence of each quant from bf16, prompt caching and prompt/generation thread splits through llama-server, listening-while-thinking contention, and PyTorch training variants (torch.compile, small-GEMM routing, jemalloc + thread binding, batch size). Software only: no reboot, firmware or boot changes.
 
@@ -53,6 +54,30 @@ Results land in `results/<host>-<date>/` as JSON plus a `REPORT.md`. Off-Pi smok
 - **Listening while thinking:** with Qwen3 decoding on two cores, Moonshine tiny-streaming slows from 0.31 to 0.46 RTF and Qwen3 from 21.4 to 15.8 tok/s; with Moonshine base, Qwen3 drops to 13.9 tok/s.
 - **Load mode:** mmap or a full read makes no difference to writing speed (24.8 vs 24.5 tok/s at 2 threads).
 - **Training variants** (2 threads): `torch.compile` +3–6%; small-GEMM routing, jemalloc and thread binding don't help; batch 1 loses ~18% efficiency, batch 4–8 matches batch 2.
+
+### Decoder bake-off (`bench/decoder.py`)
+
+Mimi's decoder misses the 80 ms frame budget, so every open candidate raced on core 3. Streaming = one call per 80 ms of new audio with 240 ms of left context (Mimi uses its own streaming step). Quality = copy synthesis of 20 LibriTTS-R test-clean clips (24 kHz) from each decoder's own mels or codes, scored at 16 kHz.
+
+| Decoder | Params | ms per 80 ms, idle | … under LM load* | Offline RTF, idle | UTMOS22 | WER |
+|---|---|---|---|---|---|---|
+| Original recording | | | | | 4.33 | 3.1% |
+| Vocos EnCodec, 6 kbps | 8.0M | **30** | 87 | **0.054** | **4.21** | 4.4% |
+| Vocos mel, ONNX + torch iSTFT | 13.5M | 32 | **72** | 0.101 | 4.04 | 3.8% |
+| Vocos mel, PyTorch | 13.5M | 54 | 129 | 0.115 | 4.04 | **3.5%** |
+| HiFi-GAN v2 (LJSpeech) | 0.9M | 48 | 111 | 0.166 | 3.30 | 3.5% |
+| HiFi-GAN v3 (LJSpeech) | 1.5M | 51 | 124 | 0.172 | 3.06 | 4.4% |
+| Mimi (rustymimi) | | 117 | 251 | 0.449 | 3.91 | 5.2% |
+| WavTokenizer, 40 Hz | 63.8M | 162 | 402 | 0.201 | 3.84 | 14.6% |
+| HiFi-GAN v1 (LJSpeech) | 13.9M | 594 | 1,488 | 1.869 | 3.53 | 4.4% |
+| SNAC 24 kHz | 13.2M | 706 | 1,323 | 1.985 | 4.15 | 5.0% |
+
+\* Under LM load the board reached 85 °C and dropped to 1.5 GHz; the idle pass held 2.4 GHz at up to 71 °C.
+
+- **Vocos wins on both axes:** about 4× faster than Mimi with higher predicted quality. The EnCodec-token variant has the best quality per millisecond; the mel variant has the lowest WER.
+- **Context is the cost, not the network.** Offline, Vocos EnCodec decodes at 0.054 RTF (4 ms per 80 ms); re-decoding 240 ms of context per call makes it 30 ms. A decoder with its own streaming state would recover most of that, which is a design target for Wonder's decoder.
+- **ONNX Runtime beats PyTorch for small chunks** (32 vs 54 ms for the same Vocos weights).
+- **Caveats:** 20 clips, so 1 point of WER is a handful of words; HiFi-GAN's checkpoints are single-speaker LJSpeech, so its quality on 10 LibriTTS-R speakers understates the architecture; UTMOS and WER are judged at 16 kHz, so the 8–12 kHz band isn't scored. Listen to `out/decoder/` before deciding.
 
 ## Rules
 

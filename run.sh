@@ -17,4 +17,5 @@ step llm   bash bench/llm.sh
 step asr   bash -c 'cd bench && python asr.py'
 step mimi  bash -c 'cd bench && python mimi.py'
 step tts   bash -c 'cd bench && python tts.py'
+step decoder bash -c 'cd bench && python decoder.py'
 python report.py "$out"
