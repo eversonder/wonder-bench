@@ -10,14 +10,15 @@ mkdir -p "$out" models/qwen/sweep data/text
 bin=llama.cpp/build-kai/bin
 temp() { cat /sys/class/thermal/thermal_zone0/temp; }
 cool() { while [ "$(temp)" -gt 60000 ]; do sleep 10; done; }
-step() { [ -s "$out/$1.json" ] && echo "skip $1" || { cool; echo "== $1 ($(date +%T), $(( $(temp) / 1000 )) °C)"; shift; "$@"; }; }
+# a failed experiment is logged and the rest still run
+step() { [ -s "$out/$1.json" ] && echo "skip $1" || { cool; echo "== $1 ($(date +%T), $(( $(temp) / 1000 )) °C)"; local n=$1; shift; "$@" || echo "!! $n failed (exit $?)"; }; }
 
 # tools the main suite didn't need
 [ -x $bin/llama-server ] || cmake --build llama.cpp/build-kai -j4 --target llama-server llama-quantize llama-perplexity >/dev/null
 
 # memory bandwidth: the ceiling on token generation
 stream() {
-  [ -x data/stream ] || { curl -fsSL -o data/stream.c https://www.cs.virginia.edu/stream/FTP/Code/stream.c && gcc -O2 -fopenmp -DSTREAM_ARRAY_SIZE=80000000 data/stream.c -o data/stream; }
+  [ -x data/stream ] || { curl -fsSL -o data/stream.c https://raw.githubusercontent.com/jeffhammond/STREAM/master/stream.c && gcc -O2 -fopenmp -DSTREAM_ARRAY_SIZE=80000000 data/stream.c -o data/stream; }
   for t in 1 2 4; do echo "threads $t"; OMP_NUM_THREADS=$t data/stream | grep -E "^(Copy|Scale|Add|Triad):"; done > "$out/stream.txt"
   python - "$out" <<'EOF'
 import json, re, sys, pathlib
