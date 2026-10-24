@@ -1,0 +1,51 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T01:42:14+0100"
+  },
+  "utterances": 20,
+  "rows": [
+    {
+      "model": "TINY",
+      "wer_pct": 5.4,
+      "rtf": 0.364,
+      "audio_s": 133.2
+    },
+    {
+      "model": "BASE",
+      "wer_pct": 2.7,
+      "rtf": 0.533,
+      "audio_s": 133.2
+    },
+    {
+      "model": "TINY_STREAMING",
+      "wer_pct": 4.3,
+      "rtf": 0.234,
+      "audio_s": 133.2,
+      "update_ms_p50": 7.6,
+      "update_ms_p95": 344.3
+    },
+    {
+      "model": "SMALL_STREAMING",
+      "wer_pct": 3.8,
+      "rtf": 0.581,
+      "audio_s": 133.2,
+      "update_ms_p50": 7.9,
+      "update_ms_p95": 832.6
+    }
+  ],
+  "watts_mean": 5.7,
+  "watts_peak": 9.393,
+  "temp_max_c": 79.8,
+  "arm_mhz_min": 2400,
+  "throttled_after": "throttled=0xe0000",
+  "samples": 417,
+  "data": "LibriSpeech test-clean, Panayotov et al., CC BY 4.0"
+}

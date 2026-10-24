@@ -1,0 +1,25 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T01:44:03+0100"
+  },
+  "threads_env": "default",
+  "frames": 125,
+  "frame_budget_ms": 80,
+  "ms_p50": 132.3,
+  "ms_p95": 150.0,
+  "rtf": 1.689,
+  "watts_mean": 4.78,
+  "watts_peak": 8.436,
+  "temp_max_c": 71.6,
+  "arm_mhz_min": 2400,
+  "throttled_after": "throttled=0xe0000",
+  "samples": 28
+}

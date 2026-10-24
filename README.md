@@ -24,9 +24,20 @@ git clone https://github.com/eversonder/wonder-bench && cd wonder-bench
 
 Results land in `results/<host>-<date>/` as JSON plus a `REPORT.md`. Off-Pi smoke test for the training bench: `python bench/train.py --smoke`.
 
+## First results
+
+[`results/gold-20261024/REPORT.md`](results/gold-20261024/REPORT.md): Raspberry Pi 5 8 GB, Ubuntu 26.04, no cooler. Headlines:
+
+- **Training:** 35 GFLOPS effective (fp32, 4 cores, throttled to 1.5 GHz); 2 cores reach ~90% of that.
+- **Thinking:** Qwen3-0.6B Q4_0 writes 26 tok/s on one core; KleidiAI reads prompts 1.5–1.9× faster than the reference build at Q8_0.
+- **Listening:** Moonshine base 2.7% WER at 0.53 RTF; tiny-streaming 4.3% at 0.23.
+- **Speaking (one core, while Qwen3 decodes on two):** Piper 0.25–0.30 RTF, Phonon-31m ~1.05, Pocket TTS ~10. Only Piper clears the 0.3 gate. Kokoro hit an espeak-ng packaging bug (fixed in the harness, rerun pending).
+- **Mimi decoder:** 132 ms per 80 ms frame on one core: too slow to build a streaming voice on as-is.
+
 ## Rules
 
 - **Same conditions, stated.** Board, RAM, OS, kernel, governor, cooling and temperature go with every number. Default board is a Pi 5 8 GB; note the cooler (or its absence).
+- **Licence:** the harness is Apache-2.0 (see `LICENSE`); models and data it downloads keep their own licences, listed below.
 - **Under load or it didn't happen.** Voice-loop numbers are taken with the LM decoding, because that's how they run in a conversation.
 - **Baselines are for comparison, never initialisation.** Kokoro and Piper phonemise with espeak-ng (GPL-3); Piper's runtime is GPL-3. They are benchmarked, not shipped.
 - **Licences of what's measured:** Qwen3 Apache-2.0 · Kokoro weights Apache-2.0 · Piper `en_US-libritts_r-medium` trained on LibriTTS-R (CC BY 4.0) · Pocket TTS weights CC BY 4.0 · Phonon-31m Apache-2.0 · Mimi CC BY 4.0 · Moonshine English MIT · LibriSpeech CC BY 4.0.

@@ -1,0 +1,219 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0008",
+    "time": "2026-10-24T01:59:35+0100"
+  },
+  "texts": {
+    "short": "Forty minutes on the clock. I'll call you when the bread's ready.",
+    "medium": "The kettle is on. Your sister called this morning and said she'd ring back after lunch. It's going to rain later, so the washing might want to come in. Would you like me to read the next chapter of your book?",
+    "numbers": "Your appointment is on the 14th of November at 3:45 pm, room 212."
+  },
+  "rows": [
+    {
+      "engine": "kokoro-int8",
+      "skipped": "ValueError: zero-size array to reduction operation maximum which has no identity",
+      "lm_load": false
+    },
+    {
+      "engine": "piper-libritts_r",
+      "text": "short",
+      "audio_s": 2.36,
+      "ttfa_ms_median": 171,
+      "rtf_median": 0.152,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "piper-libritts_r",
+      "text": "medium",
+      "audio_s": 7.78,
+      "ttfa_ms_median": 128,
+      "rtf_median": 0.148,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "piper-libritts_r",
+      "text": "numbers",
+      "audio_s": 4.35,
+      "ttfa_ms_median": 655,
+      "rtf_median": 0.15,
+      "threads": 1,
+      "peak_rss_mb": 273,
+      "lm_load": false
+    },
+    {
+      "engine": "pocket-tts",
+      "text": "short",
+      "audio_s": 3.04,
+      "ttfa_ms_median": 718,
+      "rtf_median": 3.948,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "pocket-tts",
+      "text": "medium",
+      "audio_s": 8.96,
+      "ttfa_ms_median": 827,
+      "rtf_median": 3.948,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "pocket-tts",
+      "text": "numbers",
+      "audio_s": 4.56,
+      "ttfa_ms_median": 739,
+      "rtf_median": 3.869,
+      "threads": 1,
+      "peak_rss_mb": 1161,
+      "lm_load": false
+    },
+    {
+      "engine": "phonon-31m-q8",
+      "text": "short",
+      "audio_s": 3.44,
+      "ttfa_ms_median": 116,
+      "rtf_median": 0.483,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "phonon-31m-q8",
+      "text": "medium",
+      "audio_s": 10.16,
+      "ttfa_ms_median": 186,
+      "rtf_median": 0.474,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "phonon-31m-q8",
+      "text": "numbers",
+      "audio_s": 5.52,
+      "ttfa_ms_median": 137,
+      "rtf_median": 0.482,
+      "threads": 1,
+      "peak_rss_mb": 293,
+      "lm_load": false
+    },
+    {
+      "engine": "telemetry",
+      "lm_load": false,
+      "watts_mean": 4.13,
+      "watts_peak": 8.351,
+      "temp_max_c": 79.3,
+      "arm_mhz_min": 2400,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 477
+    },
+    {
+      "engine": "kokoro-int8",
+      "skipped": "ValueError: zero-size array to reduction operation maximum which has no identity",
+      "lm_load": true
+    },
+    {
+      "engine": "piper-libritts_r",
+      "text": "short",
+      "audio_s": 2.29,
+      "ttfa_ms_median": 300,
+      "rtf_median": 0.3,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "piper-libritts_r",
+      "text": "medium",
+      "audio_s": 7.56,
+      "ttfa_ms_median": 234,
+      "rtf_median": 0.245,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "piper-libritts_r",
+      "text": "numbers",
+      "audio_s": 4.26,
+      "ttfa_ms_median": 1066,
+      "rtf_median": 0.249,
+      "threads": 1,
+      "peak_rss_mb": 272,
+      "lm_load": true
+    },
+    {
+      "engine": "pocket-tts",
+      "text": "short",
+      "audio_s": 3.04,
+      "ttfa_ms_median": 1643,
+      "rtf_median": 9.974,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "pocket-tts",
+      "text": "medium",
+      "audio_s": 9.04,
+      "ttfa_ms_median": 2118,
+      "rtf_median": 10.131,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "pocket-tts",
+      "text": "numbers",
+      "audio_s": 4.72,
+      "ttfa_ms_median": 1770,
+      "rtf_median": 10.037,
+      "threads": 1,
+      "peak_rss_mb": 1039,
+      "lm_load": true
+    },
+    {
+      "engine": "phonon-31m-q8",
+      "text": "short",
+      "audio_s": 3.44,
+      "ttfa_ms_median": 209,
+      "rtf_median": 1.044,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "phonon-31m-q8",
+      "text": "medium",
+      "audio_s": 10.16,
+      "ttfa_ms_median": 289,
+      "rtf_median": 1.082,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "phonon-31m-q8",
+      "text": "numbers",
+      "audio_s": 5.52,
+      "ttfa_ms_median": 232,
+      "rtf_median": 1.059,
+      "threads": 1,
+      "peak_rss_mb": 271,
+      "lm_load": true
+    },
+    {
+      "engine": "telemetry",
+      "lm_load": true,
+      "watts_mean": 6.02,
+      "watts_peak": 9.058,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 1500,
+      "throttled_after": "throttled=0xe0008",
+      "samples": 950
+    }
+  ],
+  "gate": "RTF <= 0.3 under LM load on one core (PLAN.md week 1 go/no-go)"
+}

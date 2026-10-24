@@ -1,0 +1,516 @@
+{
+  "rows": [
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 54.6,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 26.1,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 100.3,
+      "stddev": 0.4
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 24.7,
+      "stddev": 0.4
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 132.7,
+      "stddev": 2.4
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 20.8,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 133.4,
+      "stddev": 0.9
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 18.3,
+      "stddev": 0.1
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 85.9,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 19.7,
+      "stddev": 0.1
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 153.9,
+      "stddev": 0.2
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 17.0,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 173.9,
+      "stddev": 2.9
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 14.0,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 194.9,
+      "stddev": 1.4
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 12.2,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 21.5,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 9.9,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 40.6,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 9.2,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 48.1,
+      "stddev": 0.6
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 7.5,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 56.4,
+      "stddev": 0.2
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 6.4,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 39.7,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 7.3,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 64.6,
+      "stddev": 0.3
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 6.0,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 76.5,
+      "stddev": 0.1
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 4.9,
+      "stddev": 0.0
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 88.6,
+      "stddev": 1.5
+    },
+    {
+      "build": "kai",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 4.2,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 58.9,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 21.2,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 99.6,
+      "stddev": 0.4
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 24.3,
+      "stddev": 0.2
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 121.5,
+      "stddev": 0.8
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 20.7,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 141.2,
+      "stddev": 0.5
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q4_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 17.8,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 55.3,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 18.4,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 93.3,
+      "stddev": 0.3
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 15.7,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 112.9,
+      "stddev": 1.2
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 12.6,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 132.8,
+      "stddev": 0.8
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-0.6B-Q8_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 10.9,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 23.8,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 8.6,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 40.6,
+      "stddev": 0.4
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 9.2,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 48.9,
+      "stddev": 0.8
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 7.6,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 55.4,
+      "stddev": 0.3
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q4_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 6.5,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 1,
+      "test": "pp512",
+      "tok_per_s": 21.1,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 1,
+      "test": "tg128",
+      "tok_per_s": 6.7,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 2,
+      "test": "pp512",
+      "tok_per_s": 35.5,
+      "stddev": 0.5
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 2,
+      "test": "tg128",
+      "tok_per_s": 5.6,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 3,
+      "test": "pp512",
+      "tok_per_s": 40.6,
+      "stddev": 0.5
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 3,
+      "test": "tg128",
+      "tok_per_s": 4.5,
+      "stddev": 0.0
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 4,
+      "test": "pp512",
+      "tok_per_s": 26.1,
+      "stddev": 0.1
+    },
+    {
+      "build": "ref",
+      "model": "Qwen3-1.7B-Q8_0",
+      "threads": 4,
+      "test": "tg128",
+      "tok_per_s": 3.9,
+      "stddev": 0.0
+    }
+  ]
+}
