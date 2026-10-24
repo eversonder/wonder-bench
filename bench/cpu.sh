@@ -49,15 +49,16 @@ quants() {
   cool
   $bin/llama-bench -m models/qwen/sweep/q-Q4_0.gguf -p 256 -n 0 -t 4 -ub 64,128,256,512 -r 3 -o jsonl >> "$out/cpu-quants.raw.jsonl"
   cool
-  $bin/llama-bench -m models/qwen/sweep/q-Q4_0.gguf -p 0 -n 64 -t 2 -mmp 0,1 -r 3 -o jsonl >> "$out/cpu-quants.raw.jsonl"
+  $bin/llama-bench -m models/qwen/sweep/q-Q4_0.gguf -p 0 -n 64 -t 2 -lm mmap,none -r 3 -o jsonl >> "$out/cpu-quants.raw.jsonl"
   python - "$out" <<'EOF'
 import json, sys, pathlib
 out = pathlib.Path(sys.argv[1]); rows = []
 for line in (out / "cpu-quants.raw.jsonl").read_text().splitlines():
+    if not line.startswith("{"): continue  # llama-bench usage/errors land here too
     r = json.loads(line)
     rows.append({"model": pathlib.Path(r["model_filename"]).stem, "size_mb": round(r["model_size"] / 2**20), "threads": r["n_threads"],
                  "test": f"pp{r['n_prompt']}" if r["n_gen"] == 0 else f"tg{r['n_gen']}", "flash_attn": r.get("flash_attn"),
-                 "n_ubatch": r.get("n_ubatch"), "mmap": r.get("use_mmap"), "tok_per_s": round(r["avg_ts"], 1)})
+                 "n_ubatch": r.get("n_ubatch"), "load_mode": r.get("load_mode", r.get("use_mmap")), "tok_per_s": round(r["avg_ts"], 1)})
 (out / "cpu-quants.json").write_text(json.dumps({"rows": rows}, indent=2)); print(f"{len(rows)} rows")
 EOF
 }
