@@ -18,6 +18,8 @@ def main(folder):
     parts = [f"# wonder-bench: {folder.name}\n"]
     for f in sorted(folder.glob("*.json")):
         d = json.loads(f.read_text())
+        if not isinstance(d, dict) or f.name.endswith(".raw.json"):  # raw tool output; its summary has its own file
+            continue
         parts.append(f"## {f.stem}\n")
         if "sysinfo" in d:
             s = d["sysinfo"]
