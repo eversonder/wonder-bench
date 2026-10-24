@@ -10,6 +10,8 @@ Week 1 of [EVERSONDER Wonder](https://eversonder.com): measure, on a real Raspbe
 | `bench/mimi.py` | Mimi decoder per 80 ms frame (p50/p95), the codec Wonder TTS v0 builds on | "unmeasured" |
 | `bench/tts.py` | Kokoro int8, Piper (LibriTTS-R voice), Pocket TTS, Phonon-31m: time-to-first-audio and RTF on one core, idle and while Qwen3 decodes on two others | the go/no-go gate: **RTF ≤ 0.3 under LM load** |
 
+`bench/cpu.sh` runs the "squeeze the CPU" experiments: memory bandwidth (STREAM), a quantisation sweep with flash attention, micro-batch and mmap options, KL divergence of each quant from bf16, prompt caching and prompt/generation thread splits through llama-server, listening-while-thinking contention, and PyTorch training variants (torch.compile, small-GEMM routing, jemalloc + thread binding, batch size). Software only: no reboot, firmware or boot changes.
+
 Every result records power (PMIC rails), SoC temperature, ARM clock and throttle flags, so a throttled run shows up as throttled rather than as "the Pi is slow".
 
 ## Run it

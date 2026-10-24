@@ -85,15 +85,18 @@ def step_fn(kind, m, opt, x):
     opt.step()
 
 
-def bench(kind, mode, threads, seconds_audio, batch, steps, scale):
+def bench(kind, mode, threads, seconds_audio, batch, steps, scale, compile_=False):
     torch.set_num_threads(threads)
     torch.manual_seed(0)
     m, n, hz, shape = build(kind, mode, scale)
     trainable = [p for p in m.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(trainable, lr=1e-4)
+    if compile_:  # inductor CPU backend; fixed shapes so it compiles once
+        m = torch.compile(m, dynamic=False)
     frames = int(seconds_audio * hz)
     x = torch.randn(batch, frames, shape["d_in"])
-    step_fn(kind, m, opt, x)  # warm-up
+    for _ in range(3 if compile_ else 1):  # warm-up (compile happens here)
+        step_fn(kind, m, opt, x)
     times = []
     with Telemetry() as tel:
         for _ in range(steps):
@@ -138,6 +141,12 @@ def main():
     ap.add_argument("--smoke", action="store_true", help="tiny shapes, for checking the harness off-Pi")
     ap.add_argument("--threads", default="1,2,4")
     ap.add_argument("--steps", type=int, default=5)
+    ap.add_argument("--kinds", default="asr,tts")
+    ap.add_argument("--modes", default="full,lora")
+    ap.add_argument("--batch", type=int, help="override batch size (sweeps)")
+    ap.add_argument("--compile", action="store_true", help="torch.compile the model")
+    ap.add_argument("--no-matmul", action="store_true")
+    ap.add_argument("--tag", default="", help="save as train-<tag>.json (CPU experiments)")
     args = ap.parse_args()
     scale = 0.25 if args.smoke else 1
     # seconds of audio per sequence, batch: ~750-800 frames per step for both shapes
@@ -146,14 +155,17 @@ def main():
 
     rows = []
     for th in threads:
-        rows.append({"kind": "matmul_fp32", "threads": th, "gflops_effective": matmul_peak(th)})
-        print(rows[-1])
-        for kind in ("asr", "tts"):
-            for mode in ("full", "lora"):
-                rows.append(bench(kind, mode, th, *audio[kind], args.steps, scale))
+        if not args.no_matmul:
+            rows.append({"kind": "matmul_fp32", "threads": th, "gflops_effective": matmul_peak(th)})
+            print(rows[-1])
+        for kind in args.kinds.split(","):
+            for mode in args.modes.split(","):
+                secs, batch = audio[kind]
+                rows.append(bench(kind, mode, th, secs, args.batch or batch, args.steps, scale, args.compile))
+                rows[-1] |= {"compile": args.compile, "tag": args.tag}
                 print({k: rows[-1][k] for k in ("kind", "mode", "threads", "params_m", "step_s_median", "gflops_effective")})
     best = max(r["gflops_effective"] for r in rows if r["kind"] in ("asr", "tts") and r["mode"] == "full")
-    save("train", {"sysinfo": sysinfo(), "torch": torch.__version__, "smoke": args.smoke, "rows": rows,
+    save(f"train-{args.tag}" if args.tag else "train", {"sysinfo": sysinfo(), "env": {k: v for k, v in __import__("os").environ.items() if k.startswith(("OMP_", "TORCH_", "LD_PRELOAD", "DNNL"))}, "torch": torch.__version__, "smoke": args.smoke, "rows": rows,
                    "best_training_gflops": best, "extrapolated": extrapolate(best)})
 
 
