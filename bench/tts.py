@@ -28,12 +28,18 @@ TEXTS = {
 
 
 def kokoro(threads):
+    import glob
     import onnxruntime as ort
     from kokoro_onnx import Kokoro
+    from kokoro_onnx.config import EspeakConfig
+    # the espeakng-loader wheel has its build machine's data path baked in, and espeak ignores overrides,
+    # so phonemes come back empty; the distro's espeak-ng (apt install espeak-ng) works
+    lib = (glob.glob("/usr/lib/*-linux-gnu/libespeak-ng.so.1") or [None])[0]
+    cfg = EspeakConfig(lib_path=lib, data_path=(glob.glob("/usr/lib/*-linux-gnu/espeak-ng-data") or [None])[0]) if lib else None
     so = ort.SessionOptions()
     so.intra_op_num_threads, so.inter_op_num_threads = threads, 1
     sess = ort.InferenceSession(str(MODELS / "kokoro/kokoro-v1.0.int8.onnx"), so, providers=["CPUExecutionProvider"])
-    k = Kokoro.from_session(sess, str(MODELS / "kokoro/voices-v1.0.bin"))
+    k = Kokoro.from_session(sess, str(MODELS / "kokoro/voices-v1.0.bin"), espeak_config=cfg)
 
     def run(text):  # sentence by sentence, as a real-time voice loop would
         t0, ttfa, n, sr = time.perf_counter(), None, 0, 24000
@@ -122,7 +128,7 @@ def main():
     ap.add_argument("--engine", help="run one engine (used internally so each gets a fresh process and clean RSS)")
     ap.add_argument("--threads", type=int, default=1)
     ap.add_argument("--reps", type=int, default=3)
-    ap.add_argument("--load", action="store_true", help="decode Qwen3-0.6B on cores 1-2 while measuring")
+    ap.add_argument("--only", help="comma-separated engines to run (saves as tts-<names>.json)")
     args = ap.parse_args()
 
     if args.engine:  # child: print rows as JSON on the last line
@@ -135,7 +141,7 @@ def main():
         time.sleep(3 if load else 0)
         try:
             with Telemetry() as tel:
-                for name in ENGINES:
+                for name in (args.only.split(",") if args.only else ENGINES):
                     # TTS gets core 3 to itself, as in the plan's layout
                     out = subprocess.run(["taskset", "-c", "3", sys.executable, __file__, "--engine", name,
                                           "--threads", str(args.threads), "--reps", str(args.reps)],
@@ -150,7 +156,7 @@ def main():
             if bg:
                 bg.kill()
         rows.append({"engine": "telemetry", "lm_load": load, **tel.summary()})
-    save("tts", {"sysinfo": sysinfo(), "texts": TEXTS, "rows": rows,
+    save(f"tts-{args.only.replace(',', '-')}" if args.only else "tts", {"sysinfo": sysinfo(), "texts": TEXTS, "rows": rows,
                  "gate": "RTF <= 0.3 under LM load on one core (PLAN.md week 1 go/no-go)"})
 
 

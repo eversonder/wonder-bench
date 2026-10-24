@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 ROOT=$PWD
 
 sudo apt-get update -qq
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq build-essential cmake git ffmpeg libopenblas-dev libsndfile1 libcurl4-openssl-dev pkg-config
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq build-essential cmake git ffmpeg libopenblas-dev libsndfile1 libcurl4-openssl-dev pkg-config espeak-ng
 
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH=$HOME/.local/bin:$PATH
