@@ -31,7 +31,7 @@ Results land in `results/<host>-<date>/` as JSON plus a `REPORT.md`. Off-Pi smok
 - **Training:** 35 GFLOPS effective (fp32, 4 cores, throttled to 1.5 GHz); 2 cores reach ~90% of that.
 - **Thinking:** Qwen3-0.6B Q4_0 writes 26 tok/s on one core; KleidiAI reads prompts 1.5–1.9× faster than the reference build at Q8_0.
 - **Listening:** Moonshine base 2.7% WER at 0.53 RTF; tiny-streaming 4.3% at 0.23.
-- **Speaking (one core, while Qwen3 decodes on two):** Piper 0.25–0.30 RTF, Phonon-31m ~1.05, Pocket TTS ~10. Only Piper clears the 0.3 gate. Kokoro hit an espeak-ng packaging bug (fixed in the harness, rerun pending).
+- **Speaking (one core, while Qwen3 decodes on two):** Piper 0.25–0.30 RTF, Phonon-31m ~1.05, Pocket TTS ~10. Only Piper clears the 0.3 gate. Kokoro int8 runs at 1.7–2.7 RTF alone and 3.2–4.9 under load, with 3.4–9.6 s to first audio.
 - **Mimi decoder:** 132 ms per 80 ms frame on one core: too slow to build a streaming voice on as-is.
 
 ### Squeezing the CPU (`bench/cpu.sh`)
@@ -51,6 +51,7 @@ Results land in `results/<host>-<date>/` as JSON plus a `REPORT.md`. Off-Pi smok
   Q8_0 is close to lossless and still writes several times faster than anyone speaks; the Q4_0-embeddings variant is fastest but drifts most.
 - **Prompt caching** cuts the second turn of a conversation from 2,083 ms of prompt reading to 127 ms (only the 9 new tokens are read). Best server split: generation on 1 thread, prompt reading on 4.
 - **Listening while thinking:** with Qwen3 decoding on two cores, Moonshine tiny-streaming slows from 0.31 to 0.46 RTF and Qwen3 from 21.4 to 15.8 tok/s; with Moonshine base, Qwen3 drops to 13.9 tok/s.
+- **Load mode:** mmap or a full read makes no difference to writing speed (24.8 vs 24.5 tok/s at 2 threads).
 - **Training variants** (2 threads): `torch.compile` +3–6%; small-GEMM routing, jemalloc and thread binding don't help; batch 1 loses ~18% efficiency, batch 4–8 matches batch 2.
 
 ## Rules

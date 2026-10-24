@@ -1,0 +1,97 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T03:56:09+0100"
+  },
+  "texts": {
+    "short": "Forty minutes on the clock. I'll call you when the bread's ready.",
+    "medium": "The kettle is on. Your sister called this morning and said she'd ring back after lunch. It's going to rain later, so the washing might want to come in. Would you like me to read the next chapter of your book?",
+    "numbers": "Your appointment is on the 14th of November at 3:45 pm, room 212."
+  },
+  "rows": [
+    {
+      "engine": "kokoro-int8",
+      "text": "short",
+      "audio_s": 3.07,
+      "ttfa_ms_median": 3942,
+      "rtf_median": 2.667,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "kokoro-int8",
+      "text": "medium",
+      "audio_s": 10.45,
+      "ttfa_ms_median": 3435,
+      "rtf_median": 2.166,
+      "threads": 1,
+      "lm_load": false
+    },
+    {
+      "engine": "kokoro-int8",
+      "text": "numbers",
+      "audio_s": 5.55,
+      "ttfa_ms_median": 9616,
+      "rtf_median": 1.734,
+      "threads": 1,
+      "peak_rss_mb": 486,
+      "lm_load": false
+    },
+    {
+      "engine": "telemetry",
+      "lm_load": false,
+      "watts_mean": 4.34,
+      "watts_peak": 6.598,
+      "temp_max_c": 68.3,
+      "arm_mhz_min": 2400,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 223
+    },
+    {
+      "engine": "kokoro-int8",
+      "text": "short",
+      "audio_s": 3.07,
+      "ttfa_ms_median": 7291,
+      "rtf_median": 4.849,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "kokoro-int8",
+      "text": "medium",
+      "audio_s": 10.45,
+      "ttfa_ms_median": 6268,
+      "rtf_median": 4.057,
+      "threads": 1,
+      "lm_load": true
+    },
+    {
+      "engine": "kokoro-int8",
+      "text": "numbers",
+      "audio_s": 5.55,
+      "ttfa_ms_median": 17986,
+      "rtf_median": 3.243,
+      "threads": 1,
+      "peak_rss_mb": 481,
+      "lm_load": true
+    },
+    {
+      "engine": "telemetry",
+      "lm_load": true,
+      "watts_mean": 6.14,
+      "watts_peak": 7.46,
+      "temp_max_c": 81.5,
+      "arm_mhz_min": 2400,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 354
+    }
+  ],
+  "gate": "RTF <= 0.3 under LM load on one core (PLAN.md week 1 go/no-go)"
+}
