@@ -37,14 +37,17 @@ def kokoro(threads):
     lib = (glob.glob("/usr/lib/*-linux-gnu/libespeak-ng.so.1") or [None])[0]
     cfg = EspeakConfig(lib_path=lib, data_path=(glob.glob("/usr/lib/*-linux-gnu/espeak-ng-data") or [None])[0]) if lib else None
     so = ort.SessionOptions()
-    so.intra_op_num_threads, so.inter_op_num_threads = threads, 1
+    # onnxruntime 1.31 returns empty audio from this int8 model with exactly one intra-op thread;
+    # two threads still share the single core taskset gives TTS, so it stays a one-core measurement
+    so.intra_op_num_threads, so.inter_op_num_threads = max(2, threads), 1
     sess = ort.InferenceSession(str(MODELS / "kokoro/kokoro-v1.0.int8.onnx"), so, providers=["CPUExecutionProvider"])
     k = Kokoro.from_session(sess, str(MODELS / "kokoro/voices-v1.0.bin"), espeak_config=cfg)
 
     def run(text):  # sentence by sentence, as a real-time voice loop would
         t0, ttfa, n, sr = time.perf_counter(), None, 0, 24000
         for s in [s.strip() + "." for s in text.split(".") if s.strip()]:
-            a, sr = k.create(s, voice="af_sarah", speed=1.0, lang="en-us")
+            # kokoro-onnx 0.6's pause insertion crashes on short clips; we already split into sentences
+            a, sr = k.create(s, voice="af_sarah", speed=1.0, lang="en-us", sentence_pause=0, clause_pause=0)
             ttfa, n = ttfa or time.perf_counter() - t0, n + len(a)
         return ttfa, time.perf_counter() - t0, n / sr
     return run
