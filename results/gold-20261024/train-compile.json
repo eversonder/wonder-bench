@@ -1,0 +1,64 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T03:32:10+0100"
+  },
+  "env": {},
+  "torch": "2.14.1+cpu",
+  "smoke": false,
+  "rows": [
+    {
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "params_m": 37.9,
+      "trainable_m": 37.86,
+      "batch": 2,
+      "frames": 375,
+      "step_s_median": 5.327,
+      "frames_per_s": 141,
+      "gflops_effective": 32.0,
+      "watts_mean": 6.18,
+      "watts_peak": 9.136,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 2146,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 45,
+      "compile": true,
+      "tag": "compile"
+    },
+    {
+      "kind": "asr",
+      "mode": "full",
+      "threads": 2,
+      "params_m": 28.5,
+      "trainable_m": 28.52,
+      "batch": 2,
+      "frames": 400,
+      "step_s_median": 4.246,
+      "frames_per_s": 188,
+      "gflops_effective": 32.2,
+      "watts_mean": 6.74,
+      "watts_peak": 10.332,
+      "temp_max_c": 84.8,
+      "arm_mhz_min": 1500,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 36,
+      "compile": true,
+      "tag": "compile"
+    }
+  ],
+  "best_training_gflops": 32.2,
+  "extrapolated": {
+    "tts_lora_30min_30ep": "0.9 h",
+    "asr_full_10h_10ep": "28.0 h",
+    "tts_pretrain_1kh_100ep": "1.1 years"
+  }
+}

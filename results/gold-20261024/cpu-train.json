@@ -1,0 +1,169 @@
+{
+  "rows": [
+    {
+      "tag": "base",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 5.487,
+      "gflops_effective": 31.0,
+      "temp_max_c": 81.5,
+      "arm_mhz_min": 2400
+    },
+    {
+      "tag": "base",
+      "kind": "asr",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 4.486,
+      "gflops_effective": 30.5,
+      "temp_max_c": 84.8,
+      "arm_mhz_min": 2256
+    },
+    {
+      "tag": "batch-1",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 1,
+      "step_s_median": 3.347,
+      "gflops_effective": 25.5,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 2146
+    },
+    {
+      "tag": "batch-4",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 4,
+      "step_s_median": 11.079,
+      "gflops_effective": 30.8,
+      "temp_max_c": 85.9,
+      "arm_mhz_min": 1500
+    },
+    {
+      "tag": "batch-8",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 8,
+      "step_s_median": 21.888,
+      "gflops_effective": 31.1,
+      "temp_max_c": 86.5,
+      "arm_mhz_min": 1500
+    },
+    {
+      "tag": "compile",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 5.327,
+      "gflops_effective": 32.0,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 2146
+    },
+    {
+      "tag": "compile",
+      "kind": "asr",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 4.246,
+      "gflops_effective": 32.2,
+      "temp_max_c": 84.8,
+      "arm_mhz_min": 1500
+    },
+    {
+      "tag": "jemalloc-bind",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 5.761,
+      "gflops_effective": 29.6,
+      "temp_max_c": 83.2,
+      "arm_mhz_min": 2201
+    },
+    {
+      "tag": "jemalloc-bind",
+      "kind": "asr",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 4.778,
+      "gflops_effective": 28.7,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 2201
+    },
+    {
+      "tag": "mindim-0",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 5.558,
+      "gflops_effective": 30.7,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 2256
+    },
+    {
+      "tag": "mindim-0",
+      "kind": "asr",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 4.721,
+      "gflops_effective": 29.0,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 2201
+    },
+    {
+      "tag": "mindim-256",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 5.767,
+      "gflops_effective": 29.5,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 1500
+    },
+    {
+      "tag": "mindim-256",
+      "kind": "asr",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 4.852,
+      "gflops_effective": 28.2,
+      "temp_max_c": 84.8,
+      "arm_mhz_min": 1500
+    },
+    {
+      "tag": "mindim-64",
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 5.869,
+      "gflops_effective": 29.0,
+      "temp_max_c": 85.9,
+      "arm_mhz_min": 1500
+    },
+    {
+      "tag": "mindim-64",
+      "kind": "asr",
+      "mode": "full",
+      "threads": 2,
+      "batch": 2,
+      "step_s_median": 4.771,
+      "gflops_effective": 28.7,
+      "temp_max_c": 85.9,
+      "arm_mhz_min": 1500
+    }
+  ]
+}

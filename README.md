@@ -34,6 +34,25 @@ Results land in `results/<host>-<date>/` as JSON plus a `REPORT.md`. Off-Pi smok
 - **Speaking (one core, while Qwen3 decodes on two):** Piper 0.25–0.30 RTF, Phonon-31m ~1.05, Pocket TTS ~10. Only Piper clears the 0.3 gate. Kokoro hit an espeak-ng packaging bug (fixed in the harness, rerun pending).
 - **Mimi decoder:** 132 ms per 80 ms frame on one core: too slow to build a streaming voice on as-is.
 
+### Squeezing the CPU (`bench/cpu.sh`)
+
+- **Memory bandwidth caps writing.** STREAM Triad 8.0 / 7.1 / 5.7 GB/s at 1 / 2 / 4 threads: one core already saturates memory, which is why token generation gets slower with more threads.
+- **Flash attention is free speed:** +2–18% writing and +5–31% reading, for every quant at every thread count.
+- **Speed against quality** (Qwen3-0.6B, writing at 1 thread with flash attention; KL divergence from bf16 on public-domain text, lower is better):
+
+  | Quant | MiB | Writes tok/s | Reads tok/s (4 threads) | KLD | Same top token |
+  |---|---|---|---|---|---|
+  | Q4_0 + Q4_0 embeddings | 320 | **30.6** | 178 | 0.249 | 72.4% |
+  | Q4_0 | 358 | 26.8 | 168 | 0.220 | 75.2% |
+  | Q4_K_M | 373 | 23.5 | 132 | 0.148 | 79.0% |
+  | IQ4_NL | 359 | 22.7 | 156 | 0.165 | 76.9% |
+  | Q8_0 | 604 | 20.3 | **215** | **0.027** | **90.4%** |
+
+  Q8_0 is close to lossless and still writes several times faster than anyone speaks; the Q4_0-embeddings variant is fastest but drifts most.
+- **Prompt caching** cuts the second turn of a conversation from 2,083 ms of prompt reading to 127 ms (only the 9 new tokens are read). Best server split: generation on 1 thread, prompt reading on 4.
+- **Listening while thinking:** with Qwen3 decoding on two cores, Moonshine tiny-streaming slows from 0.31 to 0.46 RTF and Qwen3 from 21.4 to 15.8 tok/s; with Moonshine base, Qwen3 drops to 13.9 tok/s.
+- **Training variants** (2 threads): `torch.compile` +3–6%; small-GEMM routing, jemalloc and thread binding don't help; batch 1 loses ~18% efficiency, batch 4–8 matches batch 2.
+
 ## Rules
 
 - **Same conditions, stated.** Board, RAM, OS, kernel, governor, cooling and temperature go with every number. Default board is a Pi 5 8 GB; note the cooler (or its absence).

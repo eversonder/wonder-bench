@@ -1,0 +1,40 @@
+== q-IQ4_NL
+chunk             PPL               ln(PPL(Q)/PPL(base))          KL Divergence              Δp RMS            Same top p
+Mean PPL(Q)                   :  48.621083 ±   3.034714
+Mean PPL(base)                :  41.099297 ±   2.519277
+Mean PPL(Q)/PPL(base)         :   1.183015 ±   0.015311
+Mean PPL(Q)-PPL(base)         :   7.521786 ±   0.773242
+Mean    KLD:   0.164938 ±   0.003703
+Same top p: 76.863 ± 0.762 %
+== q-Q4_0-embd
+chunk             PPL               ln(PPL(Q)/PPL(base))          KL Divergence              Δp RMS            Same top p
+Mean PPL(Q)                   :  49.423995 ±   2.997061
+Mean PPL(base)                :  41.099297 ±   2.519277
+Mean PPL(Q)/PPL(base)         :   1.202551 ±   0.017947
+Mean PPL(Q)-PPL(base)         :   8.324698 ±   0.824505
+Mean    KLD:   0.249492 ±   0.004869
+Same top p: 72.386 ± 0.808 %
+== q-Q4_0
+chunk             PPL               ln(PPL(Q)/PPL(base))          KL Divergence              Δp RMS            Same top p
+Mean PPL(Q)                   :  47.231139 ±   2.845125
+Mean PPL(base)                :  41.099297 ±   2.519277
+Mean PPL(Q)/PPL(base)         :   1.149196 ±   0.016374
+Mean PPL(Q)-PPL(base)         :   6.131842 ±   0.705737
+Mean    KLD:   0.220393 ±   0.004687
+Same top p: 75.196 ± 0.781 %
+== q-Q4_K_M
+chunk             PPL               ln(PPL(Q)/PPL(base))          KL Divergence              Δp RMS            Same top p
+Mean PPL(Q)                   :  47.803840 ±   2.964960
+Mean PPL(base)                :  41.099297 ±   2.519277
+Mean PPL(Q)/PPL(base)         :   1.163130 ±   0.014167
+Mean PPL(Q)-PPL(base)         :   6.704543 ±   0.699342
+Mean    KLD:   0.148443 ±   0.003827
+Same top p: 79.020 ± 0.736 %
+== q-Q8_0
+chunk             PPL               ln(PPL(Q)/PPL(base))          KL Divergence              Δp RMS            Same top p
+Mean PPL(Q)                   :  41.965918 ±   2.566676
+Mean PPL(base)                :  41.099297 ±   2.519277
+Mean PPL(Q)/PPL(base)         :   1.021086 ±   0.004836
+Mean PPL(Q)-PPL(base)         :   0.866621 ±   0.202229
+Mean    KLD:   0.026563 ±   0.000599
+Same top p: 90.359 ± 0.534 %

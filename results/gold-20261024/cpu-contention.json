@@ -1,0 +1,30 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T03:25:58+0100"
+  },
+  "layout": "ASR pinned to core 0, Qwen3-0.6B Q4_0 generation on cores 1-2",
+  "rows": [
+    {
+      "asr": "TINY_STREAMING",
+      "asr_rtf_alone": 0.3105,
+      "asr_rtf_with_llm": 0.4553,
+      "llm_tg_alone": 21.4,
+      "llm_tg_with_asr": 15.8
+    },
+    {
+      "asr": "BASE",
+      "asr_rtf_alone": 0.7369,
+      "asr_rtf_with_llm": 0.701,
+      "llm_tg_alone": 21.6,
+      "llm_tg_with_asr": 13.9
+    }
+  ]
+}

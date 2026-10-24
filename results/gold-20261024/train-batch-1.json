@@ -1,0 +1,44 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T03:37:05+0100"
+  },
+  "env": {},
+  "torch": "2.14.1+cpu",
+  "smoke": false,
+  "rows": [
+    {
+      "kind": "tts",
+      "mode": "full",
+      "threads": 2,
+      "params_m": 37.9,
+      "trainable_m": 37.86,
+      "batch": 1,
+      "frames": 375,
+      "step_s_median": 3.347,
+      "frames_per_s": 112,
+      "gflops_effective": 25.5,
+      "watts_mean": 6.22,
+      "watts_peak": 9.986,
+      "temp_max_c": 84.2,
+      "arm_mhz_min": 2146,
+      "throttled_after": "throttled=0xe0000",
+      "samples": 28,
+      "compile": false,
+      "tag": "batch-1"
+    }
+  ],
+  "best_training_gflops": 25.5,
+  "extrapolated": {
+    "tts_lora_30min_30ep": "1.2 h",
+    "asr_full_10h_10ep": "35.3 h",
+    "tts_pretrain_1kh_100ep": "1.3 years"
+  }
+}

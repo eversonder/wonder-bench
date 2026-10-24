@@ -1,0 +1,64 @@
+{
+  "rows": [
+    {
+      "threads": 1,
+      "kernel": "Copy",
+      "gb_s": 9.02
+    },
+    {
+      "threads": 1,
+      "kernel": "Scale",
+      "gb_s": 6.22
+    },
+    {
+      "threads": 1,
+      "kernel": "Add",
+      "gb_s": 9.51
+    },
+    {
+      "threads": 1,
+      "kernel": "Triad",
+      "gb_s": 8.02
+    },
+    {
+      "threads": 2,
+      "kernel": "Copy",
+      "gb_s": 7.42
+    },
+    {
+      "threads": 2,
+      "kernel": "Scale",
+      "gb_s": 6.77
+    },
+    {
+      "threads": 2,
+      "kernel": "Add",
+      "gb_s": 7.9
+    },
+    {
+      "threads": 2,
+      "kernel": "Triad",
+      "gb_s": 7.11
+    },
+    {
+      "threads": 4,
+      "kernel": "Copy",
+      "gb_s": 6.74
+    },
+    {
+      "threads": 4,
+      "kernel": "Scale",
+      "gb_s": 6.17
+    },
+    {
+      "threads": 4,
+      "kernel": "Add",
+      "gb_s": 6.18
+    },
+    {
+      "threads": 4,
+      "kernel": "Triad",
+      "gb_s": 5.69
+    }
+  ]
+}

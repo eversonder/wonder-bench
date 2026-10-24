@@ -1,0 +1,97 @@
+{
+  "sysinfo": {
+    "host": "gold",
+    "model": "Raspberry Pi 5 Model B Rev 1.0",
+    "kernel": "7.0.0-1020-raspi",
+    "python": "3.12.15",
+    "cpus": 4,
+    "mem_gb": 7.7,
+    "governor": "performance",
+    "throttled": "throttled=0xe0000",
+    "time": "2026-10-24T03:16:42+0100"
+  },
+  "model": "Qwen3-0.6B-Q4_0.gguf",
+  "system_prompt_chars": 1560,
+  "rows": [
+    {
+      "threads_gen": 4,
+      "threads_batch": 4,
+      "cache_prompt": true,
+      "turn": 1,
+      "prompt_tokens_processed": 333,
+      "prompt_ms": 2049,
+      "prompt_tok_s": 162.5,
+      "gen_tok_s": 13.3
+    },
+    {
+      "threads_gen": 4,
+      "threads_batch": 4,
+      "cache_prompt": true,
+      "turn": 2,
+      "prompt_tokens_processed": 9,
+      "prompt_ms": 129,
+      "prompt_tok_s": 69.8,
+      "gen_tok_s": 13.7
+    },
+    {
+      "threads_gen": 2,
+      "threads_batch": 4,
+      "cache_prompt": true,
+      "turn": 1,
+      "prompt_tokens_processed": 333,
+      "prompt_ms": 2492,
+      "prompt_tok_s": 133.6,
+      "gen_tok_s": 18.0
+    },
+    {
+      "threads_gen": 2,
+      "threads_batch": 4,
+      "cache_prompt": true,
+      "turn": 2,
+      "prompt_tokens_processed": 9,
+      "prompt_ms": 198,
+      "prompt_tok_s": 45.5,
+      "gen_tok_s": 17.9
+    },
+    {
+      "threads_gen": 1,
+      "threads_batch": 4,
+      "cache_prompt": true,
+      "turn": 1,
+      "prompt_tokens_processed": 333,
+      "prompt_ms": 2067,
+      "prompt_tok_s": 161.1,
+      "gen_tok_s": 17.6
+    },
+    {
+      "threads_gen": 1,
+      "threads_batch": 4,
+      "cache_prompt": true,
+      "turn": 2,
+      "prompt_tokens_processed": 9,
+      "prompt_ms": 127,
+      "prompt_tok_s": 70.7,
+      "gen_tok_s": 17.5
+    },
+    {
+      "threads_gen": 2,
+      "threads_batch": 4,
+      "cache_prompt": false,
+      "turn": 1,
+      "prompt_tokens_processed": 333,
+      "prompt_ms": 2102,
+      "prompt_tok_s": 158.4,
+      "gen_tok_s": 17.9
+    },
+    {
+      "threads_gen": 2,
+      "threads_batch": 4,
+      "cache_prompt": false,
+      "turn": 2,
+      "prompt_tokens_processed": 332,
+      "prompt_ms": 2083,
+      "prompt_tok_s": 159.4,
+      "gen_tok_s": 18.2
+    }
+  ]
+}

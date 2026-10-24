@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "model": "q-IQ4_NL",
+      "mean_kld": 0.164938,
+      "same_top_token_pct": 76.863
+    },
+    {
+      "model": "q-Q4_0-embd",
+      "mean_kld": 0.249492,
+      "same_top_token_pct": 72.386
+    },
+    {
+      "model": "q-Q4_0",
+      "mean_kld": 0.220393,
+      "same_top_token_pct": 75.196
+    },
+    {
+      "model": "q-Q4_K_M",
+      "mean_kld": 0.148443,
+      "same_top_token_pct": 79.02
+    },
+    {
+      "model": "q-Q8_0",
+      "mean_kld": 0.026563,
+      "same_top_token_pct": 90.359
+    }
+  ],
+  "text": "Pride and Prejudice (public domain), first 60 KB"
+}
