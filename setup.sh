@@ -14,11 +14,12 @@ export PATH=$HOME/.local/bin:$PATH
 # Python 3.12: system Python on newer distros (3.14) is ahead of several wheels
 [ -d .venv ] || uv venv -q --python 3.12 .venv
 . .venv/bin/activate
-uv pip install -q torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+uv pip install -q torch==2.14.1 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/cpu  # PyPI's torchaudio is a CUDA build
 # --index-strategy lets pocket-tts see the CPU torch above instead of pulling CUDA wheels
 uv pip install -q --index-strategy unsafe-best-match --extra-index-url https://download.pytorch.org/whl/cpu \
   numpy soundfile onnxruntime huggingface_hub \
-  kokoro-onnx==0.6.1 piper-tts==1.8.0 pocket-tts==4.0.1 ptts==0.4.1 rustymimi==0.4.1 moonshine-voice==0.1.5
+  kokoro-onnx==0.6.1 piper-tts==1.8.0 pocket-tts==4.0.1 ptts==0.4.1 rustymimi==0.4.1 moonshine-voice==0.1.5 \
+  vocos==0.1.0 snac==1.2.1 librosa==1.0.0 pyyaml
 
 # llama.cpp twice: with Arm's KleidiAI kernels and without, so we A/B rather than assume
 [ -d llama.cpp ] || git clone -q --depth 1 https://github.com/ggml-org/llama.cpp
@@ -46,6 +47,14 @@ for ext in onnx onnx.json; do
   get https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/libritts_r/medium/en_US-libritts_r-medium.$ext models/piper/en_US-libritts_r-medium.$ext
 done
 get https://huggingface.co/kyutai/moshiko-pytorch-bf16/resolve/main/tokenizer-e351c8d8-checkpoint125.safetensors models/mimi/tokenizer-e351c8d8-checkpoint125.safetensors
+
+# decoder bake-off: sherpa-onnx exports of HiFi-GAN (LJSpeech) and Vocos mel, plus WavTokenizer's code and checkpoint
+mkdir -p models/vocoders models/wavtokenizer
+for f in hifigan_v1 hifigan_v2 hifigan_v3 vocos_24khz; do
+  get https://github.com/k2-fsa/sherpa-onnx/releases/download/vocoder-models/$f.onnx models/vocoders/$f.onnx
+done
+get https://huggingface.co/novateur/WavTokenizer/resolve/main/WavTokenizer_small_600_24k_4096.ckpt models/wavtokenizer/WavTokenizer_small_600_24k_4096.ckpt
+[ -d WavTokenizer ] || { git clone -q https://github.com/jishengpeng/WavTokenizer && git -C WavTokenizer checkout -q 5cf440d; }
 
 python fetch_data.py  # skips sets it already has
 echo "setup done: $(du -sh models | cut -f1) of models"
