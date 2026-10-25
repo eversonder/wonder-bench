@@ -10,6 +10,7 @@ Week 1 of [EVERSONDER Wonder](https://eversonder.com): measure, on a real Raspbe
 | `bench/mimi.py` | Mimi decoder per 80 ms frame (p50/p95), the codec Wonder TTS v0 builds on | "unmeasured" |
 | `bench/tts.py` | Kokoro int8, Piper (LibriTTS-R voice), Pocket TTS, Phonon-31m: time-to-first-audio and RTF on one core, idle and while Qwen3 decodes on two others | the go/no-go gate: **RTF ≤ 0.3 under LM load** |
 | `bench/decoder.py` | Decoder bake-off: Vocos (mel, EnCodec), WavTokenizer, HiFi-GAN v1–3, SNAC and Mimi on one core, offline RTF and streaming ms per 80 ms of audio, idle and under LM load; quality by copy synthesis of 20 LibriTTS-R clips (UTMOS22, Moonshine WER) | which decoder replaces Mimi |
+| `bench/vocos_stream.py` | Exact streaming Vocos (mel, EnCodec): per-layer caches so chunked output equals offline decoding; ms per 80 ms at 80/160/320 ms chunks in PyTorch and ONNX Runtime, idle and under LM load; the lookahead that exactness costs; the error and UTMOS22 of the bake-off's 240 ms-context call, hard-spliced into audio | "240 ms of context" streaming in the bake-off |
 
 `bench/cpu.sh` runs the "squeeze the CPU" experiments: memory bandwidth (STREAM), a quantisation sweep with flash attention, micro-batch and mmap options, KL divergence of each quant from bf16, prompt caching and prompt/generation thread splits through llama-server, listening-while-thinking contention, and PyTorch training variants (torch.compile, small-GEMM routing, jemalloc + thread binding, batch size). Software only: no reboot, firmware or boot changes.
 
@@ -78,6 +79,27 @@ Mimi's decoder misses the 80 ms frame budget, so every open candidate raced on c
 - **Context is the cost, not the network.** Offline, Vocos EnCodec decodes at 0.054 RTF (4 ms per 80 ms); re-decoding 240 ms of context per call makes it 30 ms. A decoder with its own streaming state would recover most of that, which is a design target for Wonder's decoder.
 - **ONNX Runtime beats PyTorch for small chunks** (32 vs 54 ms for the same Vocos weights).
 - **Caveats:** 20 clips, so 1 point of WER is a handful of words; HiFi-GAN's checkpoints are single-speaker LJSpeech, so its quality on 10 LibriTTS-R speakers understates the architecture; UTMOS and WER are judged at 16 kHz, so the 8–12 kHz band isn't scored. Listen to `out/decoder/` before deciding.
+
+### Streaming Vocos (`bench/vocos_stream.py`)
+
+Vocos isn't causal: a kernel-7 embed conv and 8 ConvNeXt blocks with kernel-7 depthwise convs each look 3 frames ahead, and the iSTFT overlap-add needs the next frames too. The bake-off's streaming call had left context only, so its chunk edges were approximations. This decoder keeps each conv's last 6 inputs, takes residuals from the same buffer, and overlap-adds the iSTFT across calls with the offline window-envelope normalisation, so its output equals `Vocos.decode` on the whole utterance. Same session as the old method; one core, ms of compute per 80 ms of audio (p50) for 80 / 160 / 320 ms chunks.
+
+| Vocos variant, method | Lookahead | ms per 80 ms, idle | … under LM load* | Error vs offline (SNR) | UTMOS22 |
+|---|---|---|---|---|---|
+| EnCodec 6 kbps, exact stream, ONNX step | 380 ms | **6.2** / 4.8 / 4.1 | **19.0** / 12.0 / 9.7 | 90 dB | not scored (offline 4.21) |
+| EnCodec 6 kbps, exact stream, PyTorch | 380 ms | 20.7 / 12.3 / 8.0 | 70.0 / 38.4 / 22.6 | 94 dB | not scored (offline 4.21) |
+| EnCodec 6 kbps, 240 ms left context, hard-spliced (bake-off's call, re-timed) | 0 | 31.0 / 17.3 / 10.5 | 92.4 / 49.1 / 28.9 | 10.9 / 12.9 / 17.2 dB | 3.93 |
+| mel, exact stream, ONNX step | 299 ms | 10.0 / 9.1 / 7.9 | 25.2 / 24.1 / 17.7 | 88 dB | not scored (offline 4.04) |
+| mel, exact stream, PyTorch | 299 ms | 29.7 / 21.0 / 14.1 | 92.2 / 53.8 / 35.2 | 94 dB | not scored (offline 4.04) |
+| mel, 240 ms left context, hard-spliced (bake-off's call, re-timed) | 0 | 52.0 / 30.6 / 19.0 | 125.5 / 74.9 / 44.0 | −0.8 / 1.1 / 4.2 dB | 2.71 |
+
+\* The load pass peaked at 82.6 °C and 2.31 GHz; idle peaked at 71.6 °C and held 2.4 GHz. SNR is the median over 20 clips for the context rows and the worst clip for the exact rows. UTMOS is at 80 ms chunks and only scored for offline and the context method; the exact rows are within 88–94 dB of offline, so they weren't re-scored. Offline RTF in the same session: EnCodec 0.055, mel 0.115.
+
+- **The bake-off's streaming call gives approximate audio, and for mel it's bad.** `decoder.py` only timed its calls and never joined their output, so this file splices them: each call's new samples, hard-cut and concatenated with no crossfade. Spliced, the 240 ms-context chunks score −0.8 dB waveform SNR against offline Vocos mel, 12 dB on the magnitude spectrum, and UTMOS 2.71 against 4.04. EnCodec degrades less (3.93 against 4.21). The error comes from the missing right context: on one clip, 100 frames of left context give the same SNR as 23.
+- **Exact streaming works.** It matches offline to 86–94 dB SNR on the worst clip (max error 1e-4 to 5e-4 of full scale; 88–94 dB at the 80 ms chunk), checked on all 20 clips at 80 ms minus one frame, 80, 160 and 320 ms and whole-utterance chunks, and the ONNX step at 80, 160 and 320 ms, each with a flush at the end (`--check`); 1-frame chunks are checked on 2 clips.
+- **Each call costs weight traffic, not frames.** PyTorch's GEMM is slow at a few rows: an 8-row 512×1536 linear takes 1.4 ms, about 2 GB/s of weights. So at 80 ms chunks the exact PyTorch stream is only 1.5–1.8× faster than re-decoding context idle, and 1.3–1.4× under LM load. The same step in ONNX Runtime, with caches as explicit inputs and outputs, is 3.0–3.7× faster again at 80 ms chunks and 1.8–3.2× at 160 and 320 ms. EnCodec at 6.2 ms per 80 ms idle and 19 ms under load is the first exact streaming decoder here with headroom for a backbone on the same core.
+- **Exactness costs lookahead:** 27 frames from the 9 kernel-7 convs plus the iSTFT overlap, 380 ms for EnCodec and 299 ms for mel. That delay sits on top of the chunk and the compute, so it takes about a third of a 1 s voice-to-voice budget. Only a decoder trained with causal or short-lookahead convs removes it, and that's a design target for Wonder's.
+- **Caveats:** the ONNX graph is fixed per chunk size and runs only in steady state. PyTorch handles each utterance's first ~30 frames while the caches fill (untimed), and the iSTFT overlap-add stays in torch, as in the bake-off's ONNX row. Timing covers steady-state calls on 3 clips. "Per 80 ms" is ms per call × 80 / the chunk's audio length (mel's 8-frame chunk is 85 ms long; `decoder.py` scales by ms per call × (context + 7.5) / (context + 8) frames, so on its scale mel's 80 ms context row reads 54.5 idle and 131.8 under load against the bake-off's 53.5 and 128.8; EnCodec's chunk is exactly 80 ms, so both scales agree). The ONNX export needs `onnx` 1.23.2 in the venv.
 
 ## Rules
 

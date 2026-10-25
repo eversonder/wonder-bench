@@ -18,4 +18,5 @@ step asr   bash -c 'cd bench && python asr.py'
 step mimi  bash -c 'cd bench && python mimi.py'
 step tts   bash -c 'cd bench && python tts.py'
 step decoder bash -c 'cd bench && python decoder.py'
+step vocos-stream bash -c 'cd bench && python vocos_stream.py --check && python vocos_stream.py'
 python report.py "$out"

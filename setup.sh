@@ -19,7 +19,7 @@ uv pip install -q torch==2.14.1 torchaudio==2.11.0 --index-url https://download.
 uv pip install -q --index-strategy unsafe-best-match --extra-index-url https://download.pytorch.org/whl/cpu \
   numpy soundfile onnxruntime huggingface_hub \
   kokoro-onnx==0.6.1 piper-tts==1.8.0 pocket-tts==4.0.1 ptts==0.4.1 rustymimi==0.4.1 moonshine-voice==0.1.5 \
-  vocos==0.1.0 snac==1.2.1 librosa==1.0.0 pyyaml
+  vocos==0.1.0 snac==1.2.1 librosa==1.0.0 pyyaml onnx==1.23.2  # onnx: vocos_stream.py exports its streaming step
 
 # llama.cpp twice: with Arm's KleidiAI kernels and without, so we A/B rather than assume
 [ -d llama.cpp ] || git clone -q --depth 1 https://github.com/ggml-org/llama.cpp
